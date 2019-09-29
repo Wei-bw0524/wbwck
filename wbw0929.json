@@ -1,0 +1,225 @@
+{
+	"info": {
+		"_postman_id": "5726b9eb-a202-41f9-bbaa-d3c28bc728eb",
+		"name": "IHRM人力资源管理系统0926",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "登录账号成功",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8026380d-224f-42b2-bcda-e2d8d1ce1fde",
+						"exec": [
+							"var token = pm.response.json().data",
+							"",
+							"pm.globals.set(\"login\", \"Bearer \" + token)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"mobile\":\"13800000002\", \r\n\"password\":\"123456\"}"
+				},
+				"url": {
+					"raw": "http://182.92.81.159/api/sys/login",
+					"protocol": "http",
+					"host": [
+						"182",
+						"92",
+						"81",
+						"159"
+					],
+					"path": [
+						"api",
+						"sys",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "添加员工成功",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bfd414c9-53ca-407e-a8fc-913bd6c58f01",
+						"exec": [
+							"var select = pm.response.json().data.id",
+							"",
+							"pm.globals.set(\"target_g2\", select)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{login}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\": \"wmx\",\r\n    \"mobile\": \"13100006543\",\r\n    \"timeOfEntry\": \"2019-07-01\",\r\n    \"formOfEmployment\": 1,\r\n    \"workNumber\": \"18001209\",\r\n    \"departmentName\": \"开发部\",\r\n    \"departmentId\": \"1066240656856453120\",\r\n    \"correctionTime\": \"2019-11-30\"}"
+				},
+				"url": {
+					"raw": "http://182.92.81.159/api/sys/user/",
+					"protocol": "http",
+					"host": [
+						"182",
+						"92",
+						"81",
+						"159"
+					],
+					"path": [
+						"api",
+						"sys",
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "查询员工",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{login}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://182.92.81.159/api/sys/user/{{target_g2}}",
+					"protocol": "http",
+					"host": [
+						"182",
+						"92",
+						"81",
+						"159"
+					],
+					"path": [
+						"api",
+						"sys",
+						"user",
+						"{{target_g2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "修改员工",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{login}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"wpw\"}"
+				},
+				"url": {
+					"raw": "http://182.92.81.159/api/sys/user/{{target_g2}}",
+					"protocol": "http",
+					"host": [
+						"182",
+						"92",
+						"81",
+						"159"
+					],
+					"path": [
+						"api",
+						"sys",
+						"user",
+						"{{target_g2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "删除员工",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{login}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://182.92.81.159/api/sys/user/{{target_g2}}",
+					"protocol": "http",
+					"host": [
+						"182",
+						"92",
+						"81",
+						"159"
+					],
+					"path": [
+						"api",
+						"sys",
+						"user",
+						"{{target_g2}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
